@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Akaki Brethren Church</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    animation: {
+                        'glow': 'glow 2s ease-in-out infinite alternate',
+                        'float': 'float 6s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        glow: {
+                            'from': {
+                                boxShadow: '0 0 5px #fff, 0 0 10px #fff, 0 0 15px #ffd700, 0 0 20px #ffd700'
+                            },
+                            'to': {
+                                boxShadow: '0 0 10px #fff, 0 0 20px #fff, 0 0 30px #ffd700, 0 0 40px #ffd700'
+                            }
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;500&display=swap');
+        
+        * {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(to bottom, #fefce8, #fef9c3, #fef3c7);
+            color: #422006;
+            overflow-x: hidden;
+        }
+        
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .glowing-element {
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.7),
+                        0 0 25px rgba(255, 215, 0, 0.6),
+                        0 0 35px rgba(255, 215, 0, 0.4);
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+        
+        .floating {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        .sticky-nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            background: rgba(254, 252, 232, 0.9);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .section {
+            min-height: 100vh;
+            padding-top: 80px;
+        }
+        
+        .golden-text {
+            background: linear-gradient(45deg, #bf9b30, #ffd700, #ffea7d);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+        }
+        
+        .light-beam {
+            position: absolute;
+            width: 5px;
+            height: 100%;
+            background: linear-gradient(to bottom, transparent, rgba(255, 215, 0, 0.5), transparent);
+            opacity: 0.5;
+        }
+        
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .sunray {
+            position: absolute;
+            background: linear-gradient(45deg, transparent, rgba(255, 215, 0, 0.2), transparent);
+            animation: ray 8s infinite;
+        }
+        
+        @keyframes ray {
+            0% { opacity: 0.3; }
+            50% { opacity: 0.7; }
+            100% { opacity: 0.3; }
+        }
+        
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        
+        .gallery-item {
+            height: 200px;
+            background-color: #fef3c7;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .gallery-item:hover {
+            transform: scale(1.03);
+        }
+        
+        .nav-link {
+            position: relative;
+            padding-bottom: 5px;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(to right, #bf9b30, #ffd700, #ffea7d);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .logo-container {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #ffd700;
+            margin-right: 15px;
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+        }
+        
+        .logo-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .hero-logo {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 30px;
+            background: #ffd700;
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.7);
+            animation: glow 2s ease-in-out infinite alternate, float 6s ease-in-out infinite;
+        }
+        
+        .hero-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .service-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-5px);
+        }
+    </style>
+</head>
+<body class="relative">
+    
+    <div id="sunrays-container" class="fixed inset-0 z-0 overflow-hidden"></div>
+    
+    
+    <nav class="sticky-nav py-4 z-50">
+        <div class="container mx-auto px-6 flex justify-between items-center">
+            <div class="flex items-center">
+                <div class="logo-container glowing-element">
+                    <img src="conference.076Z.png" alt="Church Logo">
+                </div>
+                <h1 class="text-2xl font-bold golden-text">Akaki Brethren Church</h1>
+            </div>
+            
+            <div class="hidden md:flex space-x-10">
+                <a href="#home" class="nav-link hover:text-amber-700 transition-colors">Home</a>
+                <a href="#about" class="nav-link hover:text-amber-700 transition-colors">About</a>
+                <a href="#services" class="nav-link hover:text-amber-700 transition-colors">Services</a>
+                <a href="#gallery" class="nav-link hover:text-amber-700 transition-colors">Gallery</a>
+                <a href="#ministry" class="nav-link hover:text-amber-700 transition-colors">Ministry</a>
+                <a href="#contact" class="nav-link hover:text-amber-700 transition-colors">Contact</a>
+            </div>
+            
+            <button class="md:hidden text-xl text-amber-700">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    
+    <section id="home" class="section relative flex items-center justify-center">
+        <div class="container mx-auto px-6 text-center z-10">
+            <div class="hero-logo">
+                <img src="conference.076Z.png" alt="Church Logo">
+            </div>
+            <h2 class="text-5xl md:text-7xl font-bold mb-6 golden-text">Welcome to Akaki Brethren Church</h2>
+            <p class="text-xl md:text-2xl mb-10 max-w-3xl mx-auto text-amber-900">A place of worship, community, and spiritual growth in the heart of our city</p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <button class="bg-amber-500 hover:bg-amber-600 text-white font-bold py-3 px-8 rounded-full glowing-element pulse">
+                    Join Us This Sunday
+                </button>
+                <a href="#gallery" class="bg-amber-700 hover:bg-amber-800 text-white font-bold py-3 px-8 rounded-full transition-all pulse">
+                    View Gallery <i class="ml-2 fas fa-images"></i>
+                </a>
+            </div>
+        </div>
+        
+        <div class="light-beam left-1/4"></div>
+        <div class="light-beam left-1/2"></div>
+        <div class="light-beam left-3/4"></div>
+    </section>
+
+    
+    <section id="about" class="section py-20 relative">
+        <div class="container mx-auto px-6 z-10">
+            <h2 class="text-4xl font-bold text-center mb-16 golden-text">About Our Church</h2>
+            
+            <div class="flex flex-col md:flex-row items-center">
+                <div class="md:w-1/2 mb-10 md:mb-0 flex justify-center">
+                    <div class="w-64 h-64 rounded-full glowing-element floating bg-amber-400 flex items-center justify-center">
+                        <span class="text-5xl text-white"><i class="fas fa-hands-praying"></i></span>
+                    </div>
+                </div>
+                
+                <div class="md:w-1/2 md:pl-12">
+                    <h3 class="text-2xl font-bold mb-4 text-amber-800">Our History</h3>
+                    <p class="mb-6 text-amber-900">Founded in 1990, Akaki Brethren Church has been a beacon of hope and faith for the community. We started as a small gathering in a home and have grown to serve hundreds of families.</p>
+                    
+                    <h3 class="text-2xl font-bold mb-4 text-amber-800">Our Mission</h3>
+                    <p class="text-amber-900">To spread the love of God, nurture spiritual growth, and serve our community with compassion and grace.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    
+    <section id="services" class="section py-20 relative">
+        <div class="container mx-auto px-6 z-10">
+            <h2 class="text-4xl font-bold text-center mb-16 golden-text">Worship Services</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-amber-100 p-8 rounded-2xl glowing-element border border-amber-300 service-card">
+                    <div class="text-4xl mb-4 text-amber-600">
+                        <i class="fas fa-church"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4 text-amber-800">Sunday Service</h3>
+                    <p class="mb-4 text-amber-900">Join us every Sunday at 10:00 AM for our main worship service.</p>
+                    <p class="text-amber-700">Children's ministry available</p>
+                </div>
+                
+                <div class="bg-amber-100 p-8 rounded-2xl glowing-element border border-amber-300 service-card">
+                    <div class="text-4xl mb-4 text-amber-600">
+                        <i class="fas fa-pray"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4 text-amber-800">Prayer Meeting</h3>
+                    <p class="mb-4 text-amber-900">Wednesdays at 6:30 PM for prayer and fellowship.</p>
+                    <p class="text-amber-700">All are welcome</p>
+                </div>
+                
+                <div class="bg-amber-100 p-8 rounded-2xl glowing-element border border-amber-300 service-card">
+                    <div class="text-4xl mb-4 text-amber-600">
+                        <i class="fas fa-music"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4 text-amber-800">Youth Worship</h3>
+                    <p class="mb-4 text-amber-900">Fridays at 7:00 PM for our dynamic youth service.</p>
+                    <p class="text-amber-700">Ages 13-18</p>
+                </div>
+                
+                
+                <div class="bg-amber-100 p-8 rounded-2xl glowing-element border border-amber-300 service-card">
+                    <div class="text-4xl mb-4 text-amber-600">
+                        <i class="fas fa-bible"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4 text-amber-800">Bible Study</h3>
+                    <p class="mb-4 text-amber-900">Thursdays at 7:00 PM for in-depth Bible study and discussion.</p>
+                    <p class="text-amber-700">All levels welcome</p>
+                </div>
+                
+                <div class="bg-amber-100 p-8 rounded-2xl glowing-element border border-amber-300 service-card">
+                    <div class="text-4xl mb-4 text-amber-600">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4 text-amber-800">Family Fellowship</h3>
+                    <p class="mb-4 text-amber-900">First Saturday of each month at 5:00 PM for family activities and dinner.</p>
+                    <p class="text-amber-700">Bring a dish to share</p>
+                </div>
+                
+                <div class="bg-amber-100 p-8 rounded-2xl glowing-element border border-amber-300 service-card">
+                    <div class="text-4xl mb-4 text-amber-600">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4 text-amber-800">Counseling Service</h3>
+                    <p class="mb-4 text-amber-900">By appointment for spiritual guidance and counseling sessions.</p>
+                    <p class="text-amber-700">Contact pastor to schedule</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    
+    <section id="gallery" class="section py-20 relative">
+        <div class="container mx-auto px-6 z-10">
+            <h2 class="text-4xl font-bold text-center mb-16 golden-text">Church Gallery</h2>
+            
+            <div class="gallery-grid">
+                
+                <div class="gallery-item">
+                    <img src="images/gallery1.jpg" alt="img">
+                </div>
+                <div class="gallery-item">
+                    <img src="images/gallery2.jpg" alt="img2">
+                </div>
+                <div class="gallery-item">
+                    <img src="images/gallery3.jpg" alt="img3">
+                </div>
+                <div class="gallery-item">
+                    <img src="images/gallery4.jpg" alt="img4">
+                </div>
+                <div class="gallery-item">
+                    <img src="images/gallery5.jpg" alt="img5">
+                </div>
+                <div class="gallery-item">
+                    <img src="images/gallery6.jpg" alt="img6">
+                </div>
+            </div>
+            
+            <div class="text-center mt-12">
+              <a href="gallery.html"><button class="bg-amber-500 hover:bg-amber-600 text-white font-bold py-3 px-8 rounded-full glowing-element">
+                    View More Photos <i class="ml-2 fas fa-arrow-right"></i>
+                </button></a>  
+            </div>
+        </div>
+    </section>
+
+    
+    <section id="ministry" class="section py-20 relative">
+        <div class="container mx-auto px-6 z-10">
+            <h2 class="text-4xl font-bold text-center mb-16 golden-text">Our Ministries</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                <div class="flex items-start">
+                    <div class="text-3xl mr-4 text-amber-600">
+                        <i class="fas fa-child"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-bold mb-2 text-amber-800">Children's Ministry</h3>
+                        <p class="text-amber-900">Engaging, age-appropriate biblical teaching for children from infants to 5th grade.</p>
+                    </div>
+                </div>
+                
+                <div class="flex items-start">
+                    <div class="text-3xl mr-4 text-amber-600">
+                        <i class="fas fa-fire"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-bold mb-2 text-amber-800">Youth Group</h3>
+                        <p class="text-amber-900">A dynamic community where teens can grow in their faith and build lasting friendships.</p>
+                    </div>
+                </div>
+                
+                <div class="flex items-start">
+                    <div class="text-3xl mr-4 text-amber-600">
+                        <i class="fas fa-hands-helping"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-bold mb-2 text-amber-800">Outreach</h3>
+                        <p class="text-amber-900">Serving our local community through various initiatives and support programs.</p>
+                    </div>
+                </div>
+                
+                <div class="flex items-start">
+                    <div class="text-3xl mr-4 text-amber-600">
+                        <i class="fas fa-music"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-bold mb-2 text-amber-800">Worship Arts</h3>
+                        <p class="text-amber-900">Using creative gifts to glorify God and lead the congregation in worship.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    
+    <section id="contact" class="section py-20 relative">
+        <div class="container mx-auto px-6 z-10">
+            <h2 class="text-4xl font-bold text-center mb-16 golden-text">Contact Us</h2>
+            
+            <div class="flex flex-col md:flex-row">
+                <div class="md:w-1/2 mb-10 md:mb-0">
+                    <h3 class="text-2xl font-bold mb-6 text-amber-800">Get In Touch</h3>
+                    
+                    <div class="flex items-center mb-6">
+                        <div class="text-2xl w-10 text-amber-600">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <p class="text-amber-900">456 Akaki, Serenity City</p>
+                    </div>
+                    
+                    <div class="flex items-center mb-6">
+                        <div class="text-2xl w-10 text-amber-600">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <p class="text-amber-900">(555) 123-4567</p>
+                    </div>
+                    
+                    <div class="flex items-center mb-6">
+                        <div class="text-2xl w-10 text-amber-600">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <p class="text-amber-900">info@akakibrthren.org</p>
+                    </div>
+                    
+                    <div class="mt-10">
+                        <h3 class="text-2xl font-bold mb-4 text-amber-800">Follow Us</h3>
+                        <div class="flex space-x-4">
+                            <a href="#" class="text-2xl text-amber-600 hover:text-amber-800"><i class="fab fa-facebook"></i></a>
+                            <a href="#" class="text-2xl text-amber-600 hover:text-amber-800"><i class="fab fa-instagram"></i></a>
+                            <a href="#" class="text-2xl text-amber-600 hover:text-amber-800"><i class="fab fa-youtube"></i></a>
+                            <a href="#" class="text-2xl text-amber-600 hover:text-amber-800"><i class="fab fa-twitter"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="md:w-1/2 md:pl-12">
+                    <form class="bg-amber-100 p-8 rounded-2xl glowing-element border border-amber-300">
+                        <div class="mb-6">
+                            <label class="block mb-2 text-amber-800">Name</label>
+                            <input type="text" class="w-full p-3 rounded-lg bg-amber-50 border border-amber-300">
+                        </div>
+                        
+                        <div class="mb-6">
+                            <label class="block mb-2 text-amber-800">Email</label>
+                            <input type="email" class="w-full p-3 rounded-lg bg-amber-50 border border-amber-300">
+                        </div>
+                        
+                        <div class="mb-6">
+                            <label class="block mb-2 text-amber-800">Message</label>
+                            <textarea rows="4" class="w-full p-3 rounded-lg bg-amber-50 border border-amber-300"></textarea>
+                        </div>
+                        
+                        <button class="bg-amber-500 hover:bg-amber-600 text-white font-bold py-3 px-8 rounded-full glowing-element">
+                            Send Message
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    
+    <footer class="bg-amber-700 py-10 text-center text-amber-100">
+        <p>© 2025/2017 Akaki Brethren Church. All rights reserved.</p>
+    </footer>
+
+    <script>
+        
+        function createSunrays() {
+            const raysContainer = document.getElementById('sunrays-container');
+            const rayCount = 12;
+            
+            for (let i = 0; i < rayCount; i++) {
+                const ray = document.createElement('div');
+                ray.classList.add('sunray');
+                
+                
+                const angle = (i / rayCount) * Math.PI * 2;
+                const length = Math.max(window.innerWidth, window.innerHeight) * 1.5;
+                
+                ray.style.width = `${length}px`;
+                ray.style.height = '40px';
+                ray.style.transform = `rotate(${angle}rad)`;
+                ray.style.transformOrigin = 'center center';
+                
+                
+                ray.style.animationDelay = `${Math.random() * 2}s`;
+                
+                raysContainer.appendChild(ray);
+            }
+        }
+        
+        
+        document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                window.scrollTo({
+                    top: targetElement.offsetTop - 80,
+                    behavior: 'smooth'
+                });
+            });
+        });
+        
+        window.addEventListener('load', function() {
+            createSunrays();
+        });
+    </script>
+</body>
+</html>

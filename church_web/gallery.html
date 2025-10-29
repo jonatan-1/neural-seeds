@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Church Gallery - Akaki Brethren Church</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    animation: {
+                        'glow': 'glow 2s ease-in-out infinite alternate',
+                        'float': 'float 6s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        glow: {
+                            'from': {
+                                boxShadow: '0 0 5px #fff, 0 0 10px #fff, 0 0 15px #ffd700, 0 0 20px #ffd700'
+                            },
+                            'to': {
+                                boxShadow: '0 0 10px #fff, 0 0 20px #fff, 0 0 30px #ffd700, 0 0 40px #ffd700'
+                            }
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;500&display=swap');
+        
+        * {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(to bottom, #fefce8, #fef9c3, #fef3c7);
+            color: #422006;
+            overflow-x: hidden;
+        }
+        
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .glowing-element {
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.7),
+                        0 0 25px rgba(255, 215, 0, 0.6),
+                        0 0 35px rgba(255, 215, 0, 0.4);
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+        
+        .floating {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        .sticky-nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            background: rgba(254, 252, 232, 0.9);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .section {
+            min-height: 100vh;
+            padding-top: 80px;
+        }
+        
+        .golden-text {
+            background: linear-gradient(45deg, #bf9b30, #ffd700, #ffea7d);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+        }
+        
+        .light-beam {
+            position: absolute;
+            width: 5px;
+            height: 100%;
+            background: linear-gradient(to bottom, transparent, rgba(255, 215, 0, 0.5), transparent);
+            opacity: 0.5;
+        }
+        
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .sunray {
+            position: absolute;
+            background: linear-gradient(45deg, transparent, rgba(255, 215, 0, 0.2), transparent);
+            animation: ray 8s infinite;
+        }
+        
+        @keyframes ray {
+            0% { opacity: 0.3; }
+            50% { opacity: 0.7; }
+            100% { opacity: 0.3; }
+        }
+        
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        
+        .gallery-item {
+            height: 200px;
+            background-color: #fef3c7;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .gallery-item:hover {
+            transform: scale(1.03);
+        }
+        
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+        
+        .nav-link {
+            position: relative;
+            padding-bottom: 5px;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(to right, #bf9b30, #ffd700, #ffea7d);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .logo-container {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #ffd700;
+            margin-right: 15px;
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+        }
+        
+        .logo-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .hero-logo {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 30px;
+            background: #ffd700;
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.7);
+            animation: glow 2s ease-in-out infinite alternate, float 6s ease-in-out infinite;
+        }
+        
+        .hero-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            padding-top: 50px;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.9);
+        }
+        
+        .modal-content {
+            margin: auto;
+            display: block;
+            width: 80%;
+            max-width: 700px;
+            animation-name: zoom;
+            animation-duration: 0.6s;
+        }
+        
+        @keyframes zoom {
+            from {transform:scale(0)}
+            to {transform:scale(1)}
+        }
+        
+        .close {
+            position: absolute;
+            top: 15px;
+            right: 35px;
+            color: #f1f1f1;
+            font-size: 40px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+        
+        .close:hover,
+        .close:focus {
+            color: #ffd700;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        
+        .caption {
+            margin: auto;
+            display: block;
+            width: 80%;
+            max-width: 700px;
+            text-align: center;
+            color: #ccc;
+            padding: 10px 0;
+            height: 150px;
+        }
+        
+        .filter-buttons {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+        
+        .filter-btn {
+            background: #fef3c7;
+            border: 2px solid #ffd700;
+            padding: 8px 15px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .filter-btn:hover, .filter-btn.active {
+            background: #ffd700;
+            color: #422006;
+        }
+        
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+            gap: 10px;
+        }
+        
+        .page-btn {
+            background: #fef3c7;
+            border: 2px solid #ffd700;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .page-btn:hover, .page-btn.active {
+            background: #ffd700;
+            color: #422006;
+        }
+    </style>
+</head>
+<body class="relative">
+    
+    <div id="sunrays-container" class="fixed inset-0 z-0 overflow-hidden"></div>
+    
+    
+    <nav class="sticky-nav py-4 z-50">
+        <div class="container mx-auto px-6 flex justify-between items-center">
+            <div class="flex items-center">
+                <div class="logo-container glowing-element">
+                    <img src="conference.076Z.png" alt="Church Logo">
+                </div>
+                <h1 class="text-2xl font-bold golden-text">Akaki Brethren Church</h1>
+            </div>
+            
+            <div class="hidden md:flex space-x-10">
+                <a href="index.html" class="nav-link hover:text-amber-700 transition-colors">Home</a>
+                <a href="index.html#about" class="nav-link hover:text-amber-700 transition-colors">About</a>
+                <a href="index.html#services" class="nav-link hover:text-amber-700 transition-colors">Services</a>
+                <a href="gallery.html" class="nav-link hover:text-amber-700 transition-colors">Gallery</a>
+                <a href="index.html#ministry" class="nav-link hover:text-amber-700 transition-colors">Ministry</a>
+                <a href="index.html#contact" class="nav-link hover:text-amber-700 transition-colors">Contact</a>
+            </div>
+            
+            <button class="md:hidden text-xl text-amber-700">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    
+    <section id="gallery" class="section py-20 relative">
+        <div class="container mx-auto px-6 z-10">
+            <h2 class="text-4xl font-bold text-center mb-6 golden-text">Church Gallery</h2>
+            <p class="text-center text-xl text-amber-800 mb-10">Browse through our collection of church memories and events</p>
+            
+            <div class="filter-buttons">
+                <button class="filter-btn active" data-filter="all">All Photos</button>
+                <button class="filter-btn" data-filter="worship">Worship Services</button>
+                <button class="filter-btn" data-filter="events">Special Events</button>
+                <button class="filter-btn" data-filter="community">Community Outreach</button>
+                <button class="filter-btn" data-filter="youth">Youth Activities</button>
+            </div>
+            
+            <div class="gallery-grid" id="gallery-container">
+                <!-- Images will be dynamically inserted here -->
+            </div>
+            
+            <div class="pagination" id="pagination">
+                <!-- Pagination buttons will be inserted here -->
+            </div>
+        </div>
+    </section>
+
+    
+    <div id="imageModal" class="modal">
+        <span class="close">&times;</span>
+        <img class="modal-content" id="modalImage">
+        <div class="caption" id="caption"></div>
+    </div>
+
+    
+    <footer class="bg-amber-700 py-10 text-center text-amber-100">
+        <p>© 2025/2017 Akaki Brethren Church. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Function to create sunrays
+        function createSunrays() {
+            const raysContainer = document.getElementById('sunrays-container');
+            const rayCount = 12;
+            
+            for (let i = 0; i < rayCount; i++) {
+                const ray = document.createElement('div');
+                ray.classList.add('sunray');
+                
+                const angle = (i / rayCount) * Math.PI * 2;
+                const length = Math.max(window.innerWidth, window.innerHeight) * 1.5;
+                
+                ray.style.width = `${length}px`;
+                ray.style.height = '40px';
+                ray.style.transform = `rotate(${angle}rad)`;
+                ray.style.transformOrigin = 'center center';
+                
+                ray.style.animationDelay = `${Math.random() * 2}s`;
+                
+                raysContainer.appendChild(ray);
+            }
+        }
+
+        // Gallery data - replace these paths with your actual image paths
+        const galleryImages = [
+            { src: "c/path/church_service_01.jpg", category: "worship", caption: "Sunday Worship Service" },
+            { src: "c/path/church_service_02.jpg", category: "worship", caption: "Congregation Singing Hymns" },
+            { src: "c/path/baptism_01.jpg", category: "events", caption: "Baptism Ceremony" },
+            { src: "c/path/easter_service.jpg", category: "events", caption: "Easter Sunday Celebration" },
+            { src: "c/path/community_outreach_01.jpg", category: "community", caption: "Food Drive for the Needy" },
+            { src: "c/path/youth_camp_01.jpg", category: "youth", caption: "Youth Summer Camp" },
+            { src: "c/path/church_service_03.jpg", category: "worship", caption: "Prayer Meeting" },
+            { src: "c/path/christmas_service.jpg", category: "events", caption: "Christmas Eve Service" },
+            { src: "c/path/community_cleanup.jpg", category: "community", caption: "Community Cleanup Initiative" },
+            { src: "c/path/youth_group_01.jpg", category: "youth", caption: "Youth Bible Study" },
+            { src: "c/path/pastor_sermon.jpg", category: "worship", caption: "Pastor Delivering Sermon" },
+            { src: "c/path/wedding_ceremony.jpg", category: "events", caption: "Church Wedding Ceremony" },
+            { src: "c/path/senior_visit.jpg", category: "community", caption: "Visiting Elderly Members" },
+            { src: "c/path/youth_retreat.jpg", category: "youth", caption: "Youth Retreat Weekend" },
+            { src: "c/path/choir_performance.jpg", category: "worship", caption: "Choir Performance" },
+            { src: "c/path/bible_study.jpg", category: "worship", caption: "Adult Bible Study Group" },
+            { src: "c/path/harvest_festival.jpg", category: "events", caption: "Annual Harvest Festival" },
+            { src: "c/path/homeless_outreach.jpg", category: "community", caption: "Homeless Shelter Outreach" },
+            { src: "c/path/youth_concert.jpg", category: "youth", caption: "Youth Music Concert" },
+            { src: "c/path/sunday_school.jpg", category: "worship", caption: "Children's Sunday School" },
+            // Add more images up to 50 as needed
+            // Example: { src: "c/path/image21.jpg", category: "worship", caption: "Image description" },
+        ];
+
+        // Pagination settings
+        const imagesPerPage = 12;
+        let currentPage = 1;
+        let currentFilter = 'all';
+
+        // Function to display gallery images
+        function displayGallery(page = 1, filter = 'all') {
+            const galleryContainer = document.getElementById('gallery-container');
+            const paginationContainer = document.getElementById('pagination');
+            
+            // Clear previous content
+            galleryContainer.innerHTML = '';
+            paginationContainer.innerHTML = '';
+            
+            // Filter images based on category
+            const filteredImages = filter === 'all' 
+                ? galleryImages 
+                : galleryImages.filter(img => img.category === filter);
+            
+            // Calculate total pages
+            const totalPages = Math.ceil(filteredImages.length / imagesPerPage);
+            
+            // Ensure current page is within valid range
+            currentPage = Math.max(1, Math.min(page, totalPages));
+            
+            // Calculate start and end index for current page
+            const startIndex = (currentPage - 1) * imagesPerPage;
+            const endIndex = Math.min(startIndex + imagesPerPage, filteredImages.length);
+            
+            // Display images for current page
+            for (let i = startIndex; i < endIndex; i++) {
+                const img = filteredImages[i];
+                const galleryItem = document.createElement('div');
+                galleryItem.className = 'gallery-item';
+                galleryItem.dataset.category = img.category;
+                galleryItem.innerHTML = `<img src="${img.src}" alt="${img.caption}" onclick="openModal('${img.src}', '${img.caption}')">`;
+                galleryContainer.appendChild(galleryItem);
+            }
+            
+            // Create pagination buttons
+            if (totalPages > 1) {
+                // Previous button
+                if (currentPage > 1) {
+                    const prevBtn = document.createElement('div');
+                    prevBtn.className = 'page-btn';
+                    prevBtn.innerHTML = '<i class="fas fa-chevron-left"></i>';
+                    prevBtn.addEventListener('click', () => displayGallery(currentPage - 1, filter));
+                    paginationContainer.appendChild(prevBtn);
+                }
+                
+                // Page number buttons
+                for (let i = 1; i <= totalPages; i++) {
+                    const pageBtn = document.createElement('div');
+                    pageBtn.className = `page-btn ${i === currentPage ? 'active' : ''}`;
+                    pageBtn.textContent = i;
+                    pageBtn.addEventListener('click', () => displayGallery(i, filter));
+                    paginationContainer.appendChild(pageBtn);
+                }
+                
+                // Next button
+                if (currentPage < totalPages) {
+                    const nextBtn = document.createElement('div');
+                    nextBtn.className = 'page-btn';
+                    nextBtn.innerHTML = '<i class="fas fa-chevron-right"></i>';
+                    nextBtn.addEventListener('click', () => displayGallery(currentPage + 1, filter));
+                    paginationContainer.appendChild(nextBtn);
+                }
+            }
+        }
+
+        // Modal functionality
+        function openModal(src, caption) {
+            const modal = document.getElementById('imageModal');
+            const modalImg = document.getElementById('modalImage');
+            const captionText = document.getElementById('caption');
+            
+            modal.style.display = "block";
+            modalImg.src = src;
+            captionText.innerHTML = caption;
+        }
+
+        function closeModal() {
+            document.getElementById('imageModal').style.display = "none";
+        }
+
+        // Initialize gallery when page loads
+        window.addEventListener('load', function() {
+            createSunrays();
+            displayGallery();
+            
+            // Add event listeners to filter buttons
+            document.querySelectorAll('.filter-btn').forEach(button => {
+                button.addEventListener('click', function() {
+                    // Update active button
+                    document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Filter gallery
+                    currentFilter = this.dataset.filter;
+                    displayGallery(1, currentFilter);
+                });
+            });
+            
+            // Close modal when clicking on X
+            document.querySelector('.close').addEventListener('click', closeModal);
+            
+            // Close modal when clicking outside the image
+            document.getElementById('imageModal').addEventListener('click', function(e) {
+                if (e.target === this) closeModal();
+            });
+        });
+    </script>
+</body>
+</html>
